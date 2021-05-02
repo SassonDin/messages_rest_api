@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify
-# from flask_restful import Api, Resource
+from flask import Flask, request
 from SQL import db, Users, Messages
 
 app = Flask(__name__)
@@ -49,7 +48,10 @@ def get_user_messages():
         data = request.args.to_dict()
         if Users.get_user_by_name(data['name']):
             messages = Messages.get_messages_by_user(data['name'])
-        return messages.jsonify()
+        return_dic = dict()
+        for message in messages:
+            return_dic[message.id] = message.as_dict()
+        return return_dic
     except Exception as err:
         print(err)
         return '500'
