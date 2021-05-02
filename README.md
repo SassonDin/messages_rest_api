@@ -12,6 +12,7 @@ example: {'sender': 'din',
            'subject': 'herolo',
            'content': 'interview pending'
            }
+           
 3)      POST      delete_message          delets a message with POST method as specified in the example
 
 example: {'sender: 'din',
