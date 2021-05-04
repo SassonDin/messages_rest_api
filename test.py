@@ -11,8 +11,8 @@ username = {'name': 'din'}
 # print(response.text)
 code = '200'
 while code != '500':
-    # username['name'] = input()
-    # code = requests.get(url=BASE + 'create_user', params=username).text
+    username['name'] = input()
+    code = requests.post(url=BASE + 'create_user', data=username).text
 
     # message['sender'] = input('sender: ')
     # message['receiver'] = input('receiver: ')
@@ -23,8 +23,8 @@ while code != '500':
     # username['name'] = input('username: ')
     # code = requests.get(url=BASE + 'get_unread_messages', params=username)
 
-    message['sender'] = input('sender: ')
-    message['receiver'] = input('receiver: ')
-    message['content'] = input('content: ')
-    code = requests.post(url=BASE + 'delete_message', data=message).text[:3]
+    # message['sender'] = input('sender: ')
+    # message['receiver'] = input('receiver: ')
+    # message['content'] = input('content: ')
+    # code = requests.post(url=BASE + 'delete_message', data=message).text[:3]
 

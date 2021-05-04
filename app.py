@@ -11,16 +11,10 @@ def initialize_database():
     db.create_all()
 
 
-@app.route('/', methods=['GET'])
-def get():
-
-    return "hgfhgcghghvhjvhjv"
-
-
 @app.route('/create_user', methods=['POST'])
 def create_user():
     try:
-        data = request.form.to_dict()
+        data = request.args.to_dict() if request.args else request.form.to_dict()
         Users(name=data['name']).save()
         return '200'
     except Exception as err:
@@ -31,7 +25,7 @@ def create_user():
 @app.route('/write_message', methods=['POST'])
 def write_message():
     try:
-        data = request.form.to_dict()
+        data = request.args.to_dict() if request.args else request.form.to_dict()
         if Users.get_user_by_name(data['sender']) and Users.get_user_by_name(data['receiver']):
             Messages(content=data['content'], subject=data['subject'], is_read=False, sender=data['sender'], receiver=data['receiver']).save()
             return '200'
@@ -45,7 +39,7 @@ def write_message():
 @app.route('/get_user_messages/', methods=['GET'])
 def get_user_messages():
     try:
-        data = request.args.to_dict()
+        data = request.args.to_dict() if request.args else request.form.to_dict()
         if Users.get_user_by_name(data['name']):
             messages = Messages.get_messages_by_user(data['name'])
         return_dic = dict()
@@ -60,7 +54,7 @@ def get_user_messages():
 @app.route('/get_unread_messages', methods=['GET'])
 def get_unread_messages():
     try:
-        data = request.args.to_dict()
+        data = request.args.to_dict() if request.args else request.form.to_dict()
         if Users.get_user_by_name(data['name']):
             messages = Messages.get_unread_messages_by_user(data['name'])
         return_dic = dict()
@@ -75,7 +69,7 @@ def get_unread_messages():
 @app.route('/get_unread_message', methods=['GET'])
 def get_unread_message():
     try:
-        data = request.args.to_dict()
+        data = request.args.to_dict() if request.args else request.form.to_dict()
         if Users.get_user_by_name(data['name']):
             message = Messages.get_unread_message_by_user(data['name'])
         return message.as_dict()
@@ -87,7 +81,7 @@ def get_unread_message():
 @app.route('/delete_message', methods=['POST'])
 def delete_message():
     try:
-        data = request.form.to_dict()
+        data = request.args.to_dict() if request.args else request.form.to_dict()
         if Users.get_user_by_name(data['sender']):
             Messages.delete_message_by_sender_receiver_content(data)
         return '200'

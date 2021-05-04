@@ -9,8 +9,6 @@ db = SQLAlchemy()
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
-    # sent_messages = db.relationship('Messages', backref='sender')
-    # received_messages = db.relationship('Messages', backref='receiver')
 
     def __init__(self, name=None):
         self.name = name
@@ -33,8 +31,6 @@ class Users(db.Model):
 
 class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # receiver_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    # sender_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     sender = db.Column(db.String(50))
     receiver = db.Column(db.String(50))
     content = db.Column(db.String(500))
